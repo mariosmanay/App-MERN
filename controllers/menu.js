@@ -13,6 +13,50 @@ async function createMenu(req, res) {
     })
 }
 
+async function getMenus(req, res) {
+    const {active} = req.query
+
+    let response = null
+    if(active === undefined) {
+        response = await Menu.find().sort({order:'asc'})
+    } else {
+        response = await Menu.find({active}).sort({order:'asc'})
+    }
+
+    if (!response) {
+        res.status(400).send({msg:'El menu no se ha encontrado'})
+    } else {
+        res.status(200).send(response)
+    }
+}
+
+async function updateMenu (req, res) {
+    const {id} = req.params
+
+    Menu.findByIdAndUpdate({_id: id}, menuData, (error) => {
+        if(error) {
+            res.status(400).send({msg:'Error al actualizar'})
+    } else {
+        res.status(200).send({msg:'Actualizacion correcta'})
+    }
+    })
+}
+
+async function deleteMenu (req, res) {
+    const {id} = req.params
+
+    Menu.findByIdAndDelete(id, (error) => {
+        if (error) {
+            res.status(400).send({msg:'Error al borrar el menu'})
+        } else {
+            res.status(200).send({msg:'Menu eliminado'})
+        }
+    })
+}
+
 module.exports = {
-    createMenu
+    createMenu,
+    getMenus,
+    updateMenu,
+    deleteMenu
 }
