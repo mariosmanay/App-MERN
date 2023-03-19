@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 // Configure Static folder
 app.use(express.static('uploads'))
 
+
 // Configure Header HTTP - CORS
 app.use(cors())
 
