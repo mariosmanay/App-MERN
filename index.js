@@ -5,11 +5,12 @@ const {
     DB_PASSWORD,
     IP_SERVER,
     API_VERSION
-} = require('./constants')
-const express = require('express')
-const app = express()
-const PORT = process.env.PORT || 3977
-/* const utils = require('./app') */
+} = require('./constants');
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 3977;
+app.use(express.json());
+
 
 
 app.listen(PORT, () => {
